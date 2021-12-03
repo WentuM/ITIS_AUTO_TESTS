@@ -1,10 +1,11 @@
 package com.example.UntitledTestSuite.tests;
 
+import com.example.UntitledTestSuite.helpers.AuthBase;
 import com.example.UntitledTestSuite.models.Post;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class UpdateEntityTestCase extends TestBase {
+public class UpdateEntityTestCase extends AuthBase {
 
     @Test
     public void updateEntityTestCase() throws Exception {

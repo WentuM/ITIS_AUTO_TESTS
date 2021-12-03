@@ -18,7 +18,6 @@ public class TestHelper extends BaseHelper {
         driver.findElement(By.id("textPost")).clear();
         driver.findElement(By.id("textPost")).sendKeys(post.getTextPost());
         driver.findElement(By.xpath("//button[@type='submit']")).click();
-        Thread.sleep(1000);
     }
 
     public Post getCreatedCommentData() {
@@ -42,6 +41,5 @@ public class TestHelper extends BaseHelper {
         sitePost.findElement(By.id("body")).clear();
         sitePost.findElement(By.id("body")).sendKeys(post.getTextPost());
         sitePost.findElement(By.className("send__tweet-btn")).click();
-        Thread.sleep(1000);
     }
 }

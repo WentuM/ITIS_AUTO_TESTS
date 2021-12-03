@@ -11,6 +11,13 @@ public class LoginHelper extends BaseHelper {
     }
 
     public void login(User user) {
+        if (isLoggedIn()) {
+            if (isLoggedIn(user.getUsername())) {
+                return;
+            }
+            logout();
+        }
+
         driver.findElement(By.id("email")).click();
         driver.findElement(By.id("email")).clear();
         driver.findElement(By.id("email")).sendKeys(user.getUsername());
@@ -20,13 +27,13 @@ public class LoginHelper extends BaseHelper {
     }
 
     public boolean isLoggedIn() {
-        return !driver.getCurrentUrl().contains("login");
+        return !driver.getCurrentUrl().contains("signIn");
     }
 
     public boolean isLoggedIn(String email) {
         driver.get("http://localhost:8080/home");
         if (isLoggedIn()) {
-            String currentUserEmail = driver.findElement(By.name("email")).getAttribute("value");
+            String currentUserEmail = driver.findElement(By.className("small__profile-alies")).getText();
 
             return currentUserEmail.equals(email);
         }
@@ -35,6 +42,6 @@ public class LoginHelper extends BaseHelper {
     }
 
     public void logout() {
-        driver.get("http://school-sotka.herokuapp.com/logout");
+        driver.get("http://localhost:8080/signIn?logout");
     }
 }

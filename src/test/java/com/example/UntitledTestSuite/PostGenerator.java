@@ -1,5 +1,7 @@
 package com.example.UntitledTestSuite;
 
+import com.example.UntitledTestSuite.models.ListOfTestPost;
+import com.example.UntitledTestSuite.models.Post;
 import com.example.UntitledTestSuite.models.TestPost;
 import com.github.javafaker.Faker;
 
@@ -10,22 +12,28 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PostGenerator {
     public static void main(String[] args) {
         Faker faker = new Faker();
 
+        List<Post> testPostList = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            Post testPost = Post.builder()
+                    .textPost(faker.book().title())
+                    .build();
 
-        TestPost commentData = TestPost.builder()
-                .textPost(faker.book().title())
-                .build();
+            testPostList.add(testPost);
+        }
 
-        jaxbObjectToXML(commentData);
+        jaxbObjectToXML(new ListOfTestPost(testPostList));
     }
 
-    private static void jaxbObjectToXML(TestPost testPost) {
+    private static void jaxbObjectToXML(ListOfTestPost testPostList) {
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(TestPost.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(ListOfTestPost.class);
 
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
@@ -33,7 +41,7 @@ public class PostGenerator {
 
             StringWriter sw = new StringWriter();
 
-            jaxbMarshaller.marshal(testPost, sw);
+            jaxbMarshaller.marshal(testPostList, sw);
 
             File file = new File("test.xml");
             PrintWriter printWriter = new PrintWriter(file);
