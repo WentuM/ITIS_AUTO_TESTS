@@ -1,0 +1,8 @@
+ <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+ <settings>
+     <login>examplE@mail.ru</login>
+
+     <password>qwertY123</password>
+
+     <baseUrl>http://localhost:8080</baseUrl>
+ </settings>

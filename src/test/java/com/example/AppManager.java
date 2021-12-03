@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.UntitledTestSuite.Settings;
 import com.example.UntitledTestSuite.helpers.LoginHelper;
 import com.example.UntitledTestSuite.helpers.NavigationHelper;
 import com.example.UntitledTestSuite.helpers.TestHelper;
@@ -26,8 +27,8 @@ public class AppManager {
         System.setProperty("webdriver.chrome.driver", "/Users/danil/Downloads/chromedriver");
         verificationErrors = new StringBuffer();
         driver = new ChromeDriver();
-        baseUrl = "http://localhost:8080";
-        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        baseUrl = Settings.getBaseUrl();
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         js = (JavascriptExecutor) driver;
         driver.get("http://localhost:8080/home");
 

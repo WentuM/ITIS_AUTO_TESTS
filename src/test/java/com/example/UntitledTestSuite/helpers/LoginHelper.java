@@ -18,4 +18,23 @@ public class LoginHelper extends BaseHelper {
         driver.findElement(By.id("password")).sendKeys(user.getPassword());
         driver.findElement(By.cssSelector(".login__groups")).submit();
     }
+
+    public boolean isLoggedIn() {
+        return !driver.getCurrentUrl().contains("login");
+    }
+
+    public boolean isLoggedIn(String email) {
+        driver.get("http://localhost:8080/home");
+        if (isLoggedIn()) {
+            String currentUserEmail = driver.findElement(By.name("email")).getAttribute("value");
+
+            return currentUserEmail.equals(email);
+        }
+
+        return false;
+    }
+
+    public void logout() {
+        driver.get("http://school-sotka.herokuapp.com/logout");
+    }
 }
