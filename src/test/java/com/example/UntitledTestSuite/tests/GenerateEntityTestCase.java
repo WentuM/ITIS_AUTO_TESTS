@@ -2,6 +2,7 @@ package com.example.UntitledTestSuite.tests;
 
 import com.example.UntitledTestSuite.models.ListOfTestPost;
 import com.example.UntitledTestSuite.models.Post;
+import javafx.geometry.Pos;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -26,14 +27,12 @@ public class GenerateEntityTestCase extends TestBase {
 
   @ParameterizedTest
   @MethodSource("readFile")
-  @Test
-  public void generateEntityTestCase() throws Exception {
+  public void generateEntityTestCase(Post post) throws Exception {
     appManager.getNavigationHelper().getPostGenerateEntityPage();
-    List<Post> post = readFile();
-    appManager.getTestHelper().generatePost(post.get(post.size() - 1));
+    appManager.getTestHelper().generatePost(post);
 
     Post createPost = appManager.getTestHelper().getCreatedCommentData();
 
-    assertEquals(post.get(post.size()-1).getTextPost(), createPost.getTextPost());
+    assertEquals(post.getTextPost(), createPost.getTextPost());
   }
 }
