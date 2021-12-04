@@ -3,7 +3,7 @@ package com.example.UntitledTestSuite.tests;
 import com.example.UntitledTestSuite.models.User;
 import org.junit.jupiter.api.Test;
 
-public class LoginTest extends TestBase{
+public class LoginTest extends TestBase {
 
     @Test
     public void loginTestCase() throws Exception {

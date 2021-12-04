@@ -9,8 +9,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.fail;
-
 public class AppManager {
     private final String baseUrl;
     private final StringBuffer verificationErrors;
@@ -23,7 +21,7 @@ public class AppManager {
     private static ThreadLocal<AppManager> appManagerThreadLocal = new ThreadLocal<>();
 
     public AppManager() {
-        System.setProperty("webdriver.chrome.driver", "/Users/danil/Downloads/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "C:\\ITIS_AUTO_TESTS\\chromedriver.exe");
         verificationErrors = new StringBuffer();
         driver = new ChromeDriver();
         baseUrl = "http://localhost:8080";
@@ -46,14 +44,6 @@ public class AppManager {
         }
 
         return appManager;
-    }
-
-    public void stop() {
-        driver.quit();
-        String verificationErrorString = verificationErrors.toString();
-        if (!"".equals(verificationErrorString)) {
-            fail(verificationErrorString);
-        }
     }
 
     public WebDriver getDriver() {

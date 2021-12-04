@@ -1,5 +1,6 @@
 package com.example.UntitledTestSuite.tests;
 
+import com.example.UntitledTestSuite.models.ListOfTestPost;
 import com.example.UntitledTestSuite.models.Post;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -9,15 +10,18 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GenerateEntityTestCase extends TestBase {
 
-  public static Post readFile() throws JAXBException {
-    JAXBContext jaxbContext = JAXBContext.newInstance(Post.class);
+  protected static List<Post> readFile() throws Exception {
+    File file = new File("test.xml");
+    JAXBContext jaxbContext = JAXBContext.newInstance(ListOfTestPost.class);
     Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-    return (Post) jaxbUnmarshaller.unmarshal(new File("test.xml"));
+    ListOfTestPost testsData = (ListOfTestPost) jaxbUnmarshaller.unmarshal(file);
+    return testsData.getTestPostList();
   }
 
   @ParameterizedTest
@@ -25,11 +29,11 @@ public class GenerateEntityTestCase extends TestBase {
   @Test
   public void generateEntityTestCase() throws Exception {
     appManager.getNavigationHelper().getPostGenerateEntityPage();
-    Post post = readFile();
-    appManager.getTestHelper().generatePost(post);
+    List<Post> post = readFile();
+    appManager.getTestHelper().generatePost(post.get(post.size() - 1));
 
     Post createPost = appManager.getTestHelper().getCreatedCommentData();
 
-    assertEquals(post.getTextPost(), createPost.getTextPost());
+    assertEquals(post.get(post.size()-1).getTextPost(), createPost.getTextPost());
   }
 }
